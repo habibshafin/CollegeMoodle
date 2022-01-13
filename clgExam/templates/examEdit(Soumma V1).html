@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block title %}Exam Edit:{{ exam.ExamID }}{% endblock %}
+
+<body>
+{% block content %}
+
+{#    showing basic exam info#}
+
+    br><br><br><br><br>
+    <h2>examID:{{ exam.ExamID }}</h2><br>
+    <h2>Term:{{ exam.TermId.TermName }}</h2><br>
+    <h2>Subject:{{ exam.Sub_Code.Sub_Name }}</h2><br>
+    <h2>Session:{{ exam.Session }}</h2><br>
+    <h2>Group:{% if exam.Group == "S" %}
+                Science
+            {% elif exam.Group == "C" %}
+                Commerce
+            {% else %}
+                Arts
+        {% endif %}</h2><br>
+
+
+
+{#    showing ct info#}
+
+    <h1 align="center"> CT PART </h1>
+    {% if exam.CTs.exists %}
+
+        {% for ct in exam.CTs.all %}
+            <h1>CTID: {{ ct.ctId }}</h1>
+            <h3>TOTAL MARKS: {{ ct.TotalMarks }}</h3>
+            <h3>PERCENTAGE: {{ ct.ctPercentage }}</h3>
+            <h3>RESULT STATUS:
+                {% if ct.isResultEntered %}
+                    UPLOADED
+                {% else %}
+                    NOT UPLOADED YET
+                {% endif %}
+            </h3>
+
+        {% endfor %}
+    {% else %}
+        <h3>No CT </h3> <br>
+    {% endif %}
+
+
+
+{#    showing practical info#}
+
+    <h1 align="center"> PRACTICAL PART </h1>
+    {% with practical=exam.practical %}
+    {% if practical.PracticalId %}
+        <h1>PracticalId: {{ practical.PracticalId }}</h1><br>
+        <h3>TOTAL MARKS: {{ practical.TotalMarks }}</h3>
+        <h3>PASS MARKS: {{ practical.PassMarks }}</h3>
+        <h3>PERCENTAGE: {{ practical.PracticalPercentage }}</h3>
+        <h3>RESULT STATUS:
+                {% if practical.isResultEntered %}
+                    UPLOADED
+                {% else %}
+                    NOT UPLOADED YET
+                {% endif %}
+        </h3>
+    {% else %}
+        <h3>No practical </h3> <br>
+    {% endif %}
+    {% endwith %}
+
+
+
+{#    showing term final info#}
+
+    <h1 align="center"> TERM FINAL PART </h1>
+
+    {#    OneToOne access korar jnno modelName SmallLetter-->(termfinal) likha lage#}
+    {% with termFinal=exam.termfinal %}
+    {% if termFinal.TermFinalId %}
+        <h1>TERM FINAL ID: {{ termFinal.TermFinalId }}</h1><br>
+        <h3>TOTAL MARKS: {{ termFinal.TotalMarks }}</h3>
+        <h3>CQ: {{ termFinal.CQ }}</h3>
+        <h3>MCQ: {{ termFinal.MCQ }}</h3>
+        <h3>PASS PERCENTAGE: {{ termFinal.PassPercentage }}</h3>
+        <h3>PERCENTAGE: {{ termFinal.TermFinalPercentage }}</h3>
+        <h3>RESULT STATUS:
+                {% if termFinal.isResultEntered %}
+                    UPLOADED
+                {% else %}
+                    NOT UPLOADED YET
+                {% endif %}
+        </h3>
+    {% else %}
+        <h3>No Term FINAL </h3> <br>
+    {% endif %}
+    {% endwith %}
+
+{% endblock %}
+</body>

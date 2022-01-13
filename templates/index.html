@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+<body>
+
+{% block content %}
+    {% include 'common/messages.html' %}
+  <section id="profile" class=" profile text-capitalize">
+    <div class="text-center text-sm-left" style="margin-top: 10px;">
+      <div class="jumbotron">
+        <div>
+          <h1 class="display-4 text-center" id="myDIV"><strong>Education Management Software </strong></h1>
+          <p class="lead">Flamingo Devop's are working for it</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+    {% block JScontent %}
+
+    {% endblock %}
+{% endblock %}
+</body>
+
+
+

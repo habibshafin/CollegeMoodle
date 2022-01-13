@@ -1,0 +1,618 @@
+{% extends 'base.html' %}
+
+{% block title %} Subject Choice{% endblock %}
+
+
+    {% block subjectCHOICE %}
+    <style>
+     * {
+      box-sizing: border-box;
+    }
+    h1{
+      margin-top: 7%;
+      font-size: 3rem;
+    }
+
+    ol li{
+      list-style-type: decimal;
+    }
+
+    .subchoice {
+
+      padding: 20px;
+      background: linear-gradient(rgba(173, 233, 221, 0.3), rgba(221, 236, 220, 0.4));
+      ;
+      border: 2px solid white;
+      border-radius: 25px;
+    }
+
+    /* Create two unequal columns that floats next to each other */
+ {% comment %} .column {
+      float: left;
+      padding-left: 10px;
+
+    }
+
+    .left {
+      width: 50%;
+    }
+
+    .right {
+      width: 50%;
+    }  {% endcomment %}
+
+    /* Clear floats after the columns */
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+       {% if selector == 'S' %}
+        div.humanitiesSelection,div.CommerceSelection{
+          display: none;
+        }
+      {% endif %}
+      {% if selector == 'A' %}
+        div.ScienceSelection,div.CommerceSelection{
+          display: none;
+        }
+      {% endif %}
+      {% if selector == 'C' %}
+        div.humanitiesSelection,div.ScienceSelection{
+          display: none;
+        }
+      {% endif %}
+
+    </style>
+    {% endblock %}
+
+{% load static %}
+<body>
+{% block content %}
+<div class="container subchoice mt-4 text-capitalize">
+    <div class="ScienceSelection">
+
+
+
+      <h1 class="text-center">Science Group</h1>
+      <hr>
+      <div class="row">
+          <div class="col-sm-4">
+          <h4>Already Selected Subjects</h4>
+          </div>
+          <div class="col-sm-8">
+              <ol>
+                <li>Bangla</li><li>English</li> <li>Information and Communication Technology</li>
+                <li>Physics</li> <li>Chemistry</li>
+              </ol>
+          </div>
+      </div>
+
+      <hr>
+        <form class="" action="{% url 'student:choice' %}" method="post">
+        {% csrf_token %}
+      <div class="row">
+          <div class="col-sm-4">
+            <h4>Select compulsory subject</h4>
+          </div>
+          <div class="col-sm-8">
+              <select id="scienceCompulsory" name="scienceCompulsory" onclick="choice_function()" class="form-control w-50">
+                  <option disabled>Select Subject</option>
+                  <option value='265'>Higher Math</option>
+                  <option value='178'>Biology</option>
+              </select>
+          </div>
+      </div>
+      <hr>
+
+      <div class="row">
+          <div class="col-sm-4">
+            <h4>Selected Optional Subject</h4>
+          </div>
+          <div class="col-sm-8">
+              <select id="scienceOptional" name = "scienceOptional" class="form-control w-50"></select>
+          </div>
+      </div>
+      <hr>
+         <button type="submit" class="w-25 btn btn-info mx-auto">Submit</button>
+      <hr>
+      </form>
+
+</div>
+
+    <div class="CommerceSelection">
+
+              <h1 class="text-center">Commerce Group</h1>
+              <hr>
+              <div class="row">
+                  <div class="col-sm-4">
+                  <h4>Already Selected Subjects</h4>
+                  </div>
+                  <div class="col-sm-8">
+                      <ol>
+                        <li>Bangla</li><li>English</li> <li>Information and Communication Technology</li>
+                        <li>Accounting</li> <li>Business Organization and Management</li>
+                      </ol>
+                  </div>
+              </div>
+      <hr>
+        <form class="" action="{% url 'student:choice' %}" method="post">
+            {% csrf_token %}
+              <div class="row">
+                  <div class="col-sm-4">
+                  <h4>Select Compulsory Subject</h4>
+              </div>
+
+               <div class="col-sm-8">
+                  <select id="commerceCompulsory" name="commerceCompulsory" onclick="choice_function1()"  class="form-control w-50">
+                    <option disabled>Select Subject</option>
+                    <option value='292'>Finance Banking And Insurance</option>
+                    <option value='286'>Production Management And Marketing</option>
+                  </select>
+              </div>
+      </div>
+      <hr>
+      <div class="row">
+      <div class="col-sm-4">
+      <h4>Selected Optional Subject</h4>
+      </div>
+      <div class="col-sm-8">
+      <select id="commerceOptional" name = "commerceOptional"  class="form-control w-50"></select>
+            </div>
+      </div>
+      <hr>
+      <button type="submit" class="w-25 btn btn-info mx-auto">Submit</button>
+      <hr>
+      </form>
+    </div>
+
+    <div class="humanitiesSelection">
+
+    <h1 class="text-center">Humanities Group</h1>
+    <hr>
+    <div class="row">
+    <div class="col-sm-4">
+      <h4>Already Selected Subjects</h4>
+    </div>
+    <div class="col-sm-8">
+      <ol>
+        <li>Bangla</li>
+        <li>English</li>
+        <li>Information and Communication Technology</li>
+      </ol>
+      </div>
+      </div>
+      <hr>
+
+      <form class="" action="{% url 'student:choice' %}" method="post">
+        {% csrf_token %}
+      <div class="row">
+  <div id = "div1" class="col-sm-6">
+    <h2>Select Compulsory Subject</h2>
+    <p>
+
+    <input type="checkbox" id="Logic" name="humanitiesCompulsary" value="121" onclick="funct()">
+    <label for="Logic">Logic</label><br>
+
+    <input type="checkbox" id="Sociology" name="humanitiesCompulsary" value="117" onclick="funct()">
+    <label for="Sociology">Sociology</label><br>
+
+    <input type="checkbox" id="Islamic_History_And_Culture" name="humanitiesCompulsary" value="267"onclick="funct()">
+    <label for="Islamic_History_And_Culture">Islamic History And Culture</label><br>
+
+    <input type="checkbox" id="Civic_And_Good_Governance" name="humanitiesCompulsary" value="269" onclick="funct()">
+    <label for="Civic_And_Good_Governance">Civic_And_Good_Governance</label><br>
+
+    <input type="checkbox" id="Social_Work" name="humanitiesCompulsary" value="271" onclick="funct()">
+    <label for="Social_Work">Social_Work</label><br>
+
+    <input type="checkbox" id="History" name="humanitiesCompulsary" value="304" onclick="funct()">
+    <label for="History">History</label><br>
+
+    <input type="checkbox" id="Geography" name="humanitiesCompulsary" value="125" onclick="funct()">
+    <label for="Geography">Geography</label><br>
+
+    <input type="checkbox" id="Economics" name="humanitiesCompulsary" value="109" onclick="funct()">
+    <label for="Economics">Economics</label> <br>
+    </p>
+
+  </div>
+
+  <div id = "div2" class="col-sm-6" >
+       <h2>Select Optional Subject</h2>
+    <p>
+
+    <input type="checkbox" id="Logic1" name="humanitiesOptional" value="121" onclick="funct2()" disabled>
+    <label for="Logic1">Logic</label><br>
+
+    <input type="checkbox" id="Sociology1" name="humanitiesOptional" value="117" onclick="funct2()" disabled>
+    <label for="Sociology1">Sociology</label><br>
+
+    <input type="checkbox" id="Islamic_History_And_Culture1" name="humanitiesOptional" value="267" onclick="funct2()" disabled>
+    <label for="Islamic_History_And_Culture1">Islamic_History_And_Culture</label><br>
+
+    <input type="checkbox" id="Civic_And_Good_Governance1" name="humanitiesOptional" value="269" onclick="funct2()" disabled>
+    <label for="Civic_And_Good_Governance1">Civic_And_Good_Governance</label><br>
+
+    <input type="checkbox" id="Social_Work1" name="humanitiesOptional" value="271" onclick="funct2()" disabled>
+    <label for="Social_Work1">Social_Work</label><br>
+
+    <input type="checkbox" id="History1" name="humanitiesOptional" value="304" onclick="funct2()" disabled>
+    <label for="History1">History</label><br>
+
+    <input type="checkbox" id="Geography1" name="humanitiesOptional" value="125" onclick="funct2()" disabled>
+    <label for="Geography1">Geography</label><br>
+
+    <input type="checkbox" id="Economics1" name="humanitiesOptional" value="109" onclick="funct2()" disabled>
+    <label for="Economics1">Economics</label> <br>
+
+    <input type="checkbox" id="Psychology" name="humanitiesOptional" value="123" class="op" onclick="funct2()" disabled>
+    <label for="Psychology">Psychology</label> <br>
+    <input type="checkbox" id="Statistics" name="humanitiesOptional" value="129" class="op" onclick="funct2()" disabled>
+    <label for="Statistics">Statistics</label> <br>
+    <input type="checkbox" id="Agriculture Education (Theoretical) 1st Paper" name="humanitiesOptional" value="239" class="op" onclick="funct2()" disabled>
+    <label for="Agriculture Education (Theoretical) 1st Paper">Agriculture Education (Theoretical)</label> <br>
+    <input type="checkbox" id="Soil Science (Theoretical) 1st Paper" name="humanitiesOptional" value="288" class="op" onclick="funct2()" disabled>
+    <label for="Soil Science (Theoretical) 1st Paper">Soil Science (Theoretical) </label> <br>
+    <input type="checkbox" id="Home economics 1st Paper" name="humanitiesOptional" value="273"  class="op" onclick="funct2()" disabled>
+    <label for="Home economics 1st Paper">Home economics </label> <br>
+    <input type="checkbox" id="Higher Mathematics" name="humanitiesOptional" value="265" class="op" onclick="funct2()" disabled>
+    <label for="Higher Mathematics">Higher Mathematics</label> <br>
+    <input type="checkbox" id="Arts and crafts (Theoretical) 1st Paper" name="humanitiesOptional" value="225" class="op" onclick="funct2()" disabled>
+    <label for="Arts and crafts (Theoretical) 1st Paper">Arts and crafts (Theoretical)</label> <br>
+
+    </p>
+  </div>
+</div>
+<hr>
+    <button type="submit" class="w-25 btn btn-info mx-auto">Submit</button>
+    <hr>
+  </form>
+  </div>
+
+</div>
+
+
+       <script>
+      Array.prototype.remove= function(){
+         var what, a= arguments, L= a.length, ax;
+         while(L && this.length){
+           what= a[--L];
+           while((ax= this.indexOf(what))!= -1){
+            this.splice(ax, 1);
+          }
+        }
+        return this;
+      }
+
+       function humanities1(){
+         var arr = manageCompulsarySubjects();
+         var string = "";
+         for (i = 0; i < arr.length; i++) {
+             string = string + "<option value=" + arr[i] + ">" + arr[i] + "</option>";
+         }
+         document.getElementById("compulsory2").innerHTML = string;
+       }
+       function humanities2(){
+         var arr = manageCompulsarySubjects();
+         var string = "";
+         for (i = 0; i < arr.length; i++) {
+             string = string + "<option value=" + arr[i] + ">" + arr[i] + "</option>";
+         }
+         document.getElementById("compulsory3").innerHTML = string;
+       }
+       function manageCompulsarySubjects(){
+         var compulsorySubjects = ["Logic","Sociology","Islamic_History_And_Culture","Civic_And_Good_Governance","Social_Work","History","Geography","Economics"];
+         sub1 = document.getElementById("compulsory1").value;
+         sub2 = document.getElementById("compulsory2").value;
+         compulsorySubjects.remove(sub1);
+         compulsorySubjects.remove(sub2);
+
+         if(sub1=="Sociology"|| sub2=="Sociology"){ compulsorySubjects.remove("Social_Work");}
+         else if (sub1== "Social_Work" || sub2== "Social_Work"){ compulsorySubjects.remove("Sociology");}
+         if(sub1=="History"||sub2=="History"){ compulsorySubjects.remove("Islamic_History_And_Culture");}
+         else if (sub1=="Islamic_History_And_Culture" || sub2 == "Islamic_History_And_Culture"){ compulsorySubjects.remove("History");}
+         return compulsorySubjects;
+       }
+       function humanities3(){
+         var optionalSubjects=["Logic","Sociology","Islamic_History_And_Culture","Civic_And_Good_Governance","Social_Work","History","Geography","Economics","Psychology","Statistics","Agriculture_Education","Soil_Science","Home_Economics","Higher_Math","Arts_And_Crafts"];
+         sub1 = document.getElementById("compulsory1").value;
+         sub2 = document.getElementById("compulsory2").value;
+         sub3 = document.getElementById("compulsory3").value;
+         optionalSubjects.remove(sub1);
+         optionalSubjects.remove(sub2);
+         optionalSubjects.remove(sub3);
+         string = "";
+         for (i = 0; i < optionalSubjects.length; i++) {
+             string = string + "<option value=" + optionalSubjects[i] + ">" + optionalSubjects[i] + "</option>";
+         }
+         document.getElementById("humoptional").innerHTML = string;
+       }
+
+        function choice_function() {
+          var optionals = [];
+          var comp = document.getElementById("scienceCompulsory").value;
+          if (!comp.localeCompare('265'))
+          {
+              optionals = ["Biology", "Psychology", "Geography", "Statistics", "EngDraw&WorkPrac", "AgricultureEducation(Theoretical)"];
+              optionalCodes = ['178','123','125','129','182','239'];
+          }
+          else if(!comp.localeCompare('178'))
+          {
+             optionals = ["HigherMath", "Psychology", "Geography", "Statistics", "EngDraw&WorkPrac", "AgricultureEducation(Theoretical)"];
+             optionalCodes = ['265','123','125','129','182','239'];
+          }
+          var string = "";
+          for (i = 0; i < optionals.length; i++)
+          {
+              string = string + "<option value=" + optionalCodes[i] + ">" + optionals[i] + "</option>";
+          }
+          document.getElementById("scienceOptional").innerHTML = string;
+
+        }
+
+
+        function choice_function1() {
+            var optionals = []
+
+            var comp = document.getElementById("commerceCompulsory").value;
+
+                if (!comp.localeCompare('292'))
+                {
+                   optionals = ["Production Management And Marketing", "Statistics", "Geography", "Agriculture_Education_(Theoretical)", "Home_Economics"];
+                   optionalCodes = ['286','129','125','239','273'];
+                }
+                else if(!comp.localeCompare('286'))
+                {
+                   optionals = ["Finance_Banking_And_Insurance", "Statistics", "Geography", "Agriculture_Education_(Theoretical)", "Home_Economics"];
+                   optionalCodes = ['292','129','125','239','273'];
+                }
+
+
+            var string = "";
+            for (i = 0; i < optionals.length; i++)
+            {
+                string = string + "<option value=" + optionalCodes[i] + ">" + optionals[i] + "</option>";
+            }
+            document.getElementById("commerceOptional").innerHTML = string;
+          }
+
+
+
+
+    function funct()
+    {
+
+
+if(count("div1") >= 3 )
+     {
+        var test = document.getElementById("div1").getElementsByTagName("input");
+        //alert("Number of Input Elements "+test.length);
+        for(var i=0;i<test.length;i++)
+        {
+          if(test[i].type=="checkbox" && !test[i].checked)
+          {
+            test[i].disabled=true;
+          }
+        }
+
+     }
+     else
+     {
+      var test = document.getElementById("div1").getElementsByTagName("input");
+        //alert("Number of Input Elements "+test.length);
+        for(var i=0;i<test.length;i++)
+        {
+          if(test[i].type=="checkbox" && !test[i].checked)
+          {
+            test[i].disabled=false;
+          }
+       }
+     }
+
+      if(document.getElementById("Logic").checked)
+      {
+        document.getElementById("Logic1").disabled = true;
+        document.getElementById("Logic1").checked = false;
+      }
+      else
+      {
+        if(count("div2") < 1  && count("div1") == 3 )
+        document.getElementById("Logic1").disabled = false;
+      }
+
+
+      if(document.getElementById("Economics").checked)
+      {
+        document.getElementById("Economics1").disabled = true;
+        document.getElementById("Economics1").checked = false;
+      }
+      else
+      {
+        if(count("div2") < 1  && count("div1") == 3 )
+        document.getElementById("Economics1").disabled = false;
+      }
+
+
+      if(document.getElementById("Geography").checked)
+      {
+        document.getElementById("Geography1").disabled = true;
+        document.getElementById("Geography1").checked = false;
+      }
+      else
+      {
+        if(count("div2") < 1  && count("div1") == 3 )
+        document.getElementById("Geography1").disabled = false;
+      }
+
+
+      if(document.getElementById("Civic_And_Good_Governance").checked)
+      {
+        document.getElementById("Civic_And_Good_Governance1").disabled = true;
+        document.getElementById("Civic_And_Good_Governance1").checked = false;
+      }
+      else
+      {
+        if(count("div2") < 1  && count("div1") == 3 )
+        document.getElementById("Civic_And_Good_Governance1").disabled = false;
+      }
+
+
+      if(document.getElementById("History").checked)
+      {
+        document.getElementById("History1").disabled = true;
+        document.getElementById("Islamic_History_And_Culture").disabled = true;
+         document.getElementById("History1").checked = false;
+        document.getElementById("Islamic_History_And_Culture").checked = false;
+      }
+      else
+      {
+        if(count("div2") < 1  && count("div1") == 3 )
+        document.getElementById("History1").disabled = false;
+        if(count("div1") < 3 )
+        document.getElementById("Islamic_History_And_Culture").disabled = false;
+      }
+
+
+      if(document.getElementById("Social_Work").checked)
+      {
+        document.getElementById("Social_Work1").disabled = true;
+        document.getElementById("Sociology").disabled = true;
+           document.getElementById("Social_Work1").checked = false;
+        document.getElementById("Sociology").checked = false;
+      }
+      else
+      {
+        if(count("div2") < 1  && count("div1") == 3 )
+        document.getElementById("Social_Work1").disabled = false;
+        if(count("div1") < 3 )
+        document.getElementById("Sociology").disabled = false;
+      }
+
+
+      if(document.getElementById("Sociology").checked)
+      {
+        document.getElementById("Social_Work").disabled = true;
+        document.getElementById("Sociology1").disabled = true;
+          document.getElementById("Social_Work").checked = false;
+        document.getElementById("Sociology1").checked = false;
+      }
+      else
+      {
+        if(count("div1") < 3 )
+          document.getElementById("Social_Work").disabled = false;
+        if(count("div2") < 1 && count("div1") == 3  )
+        document.getElementById("Sociology1").disabled = false;
+      }
+
+      if(document.getElementById("Islamic_History_And_Culture").checked)
+      {
+        document.getElementById("History").disabled = true;
+        document.getElementById("Islamic_History_And_Culture1").disabled = true;
+         document.getElementById("History").checked =false;
+        document.getElementById("Islamic_History_And_Culture1").checked = false;
+      }
+      else
+      {
+        if(count("div1") < 3 )
+          document.getElementById("History").disabled = false;
+        if(count("div2") < 1 && count("div1") == 3 )
+        document.getElementById("Islamic_History_And_Culture1").disabled = false;
+      }
+
+
+      if(count("div1") == 3)
+      { var x = document.getElementsByClassName("op");
+        if(count("div2") < 1)
+        {
+          for(var i=0; i<x.length; i++)
+          {
+            x[i].disabled = false;
+          }
+        }
+      }
+      else
+      {
+        var x = document.getElementById("div2").getElementsByTagName("input");
+
+          for(var i=0; i<x.length; i++)
+          {
+            x[i].checked = false;
+            x[i].disabled = true;
+          }
+
+      }
+
+    console.log(count("div1"));
+
+    console.log(count("div2"));
+
+    }
+
+
+function count(divid)
+{
+  counter = 0;
+  var test = document.getElementById(divid).getElementsByTagName("input");
+        //alert("Number of Input Elements "+test.length);
+        for(var i=0;i<test.length;i++)
+        {
+          if(test[i].type=="checkbox" && test[i].checked)
+          {
+            counter++;
+          }
+       }
+ return counter;
+
+}
+
+
+function funct2()
+{
+  var divis1 = document.getElementById("div1").getElementsByTagName("input");
+  console.log("vxd = " +count("div2"));
+  if(count("div2") >= 1)
+   {
+      var test = document.getElementById("div2").getElementsByTagName("input");
+
+        for(var i=0;i<test.length;i++)
+        {
+          if(test[i].type=="checkbox" && !test[i].checked)
+          {
+           test[i].disabled = true;
+          }
+       }
+   }
+   else
+   {
+      var test = document.getElementById("div2").getElementsByTagName("input");
+
+        for(var i=0;i<test.length;i++)
+        {
+          if(test[i].type=="checkbox" && !test[i].checked )
+          {
+            if(i<divis1.length )
+            {
+              if(!divis1[i].checked)
+                test[i].disabled = false;
+            }
+            else
+            {
+              test[i].disabled = false;
+            }
+          }
+
+       }
+
+       console.log("size = " + document.getElementsByClassName("op").length);
+   }
+
+
+
+}
+
+    </script>
+
+{% endblock %}
+</body>

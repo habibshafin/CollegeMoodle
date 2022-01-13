@@ -1,0 +1,342 @@
+{% extends 'base.html' %}
+
+{% block title %} Profile: {{student.Roll}} {% endblock %}
+
+{% load static %}
+ {% block content %}
+
+<body>
+
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/select2/select2.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
+
+
+    <style type="text/css">
+    	#ProfileStudent{
+    		background:linear-gradient(rgba(250, 252, 249, 0.8),rgba(65, 148, 176, 0.7));
+    		height: 1200px;
+    	}
+    	#ProfileStudent img{
+    		display: block;
+  			margin-left: auto;
+  			margin-right: auto;
+  			width: 300px;
+  			height: 300px;
+    	}
+
+
+    	#ProfileStudent a {
+	margin: 0px;
+	transition: all 0.4s;
+	-webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+}
+
+#ProfileStudent a:focus {
+	outline: none !important;
+}
+
+#ProfileStudent a:hover {
+	text-decoration: none;
+}
+
+/* ------------------------------------ */
+h1,h2,h3,h4,h5,h6 {margin: 0px;}
+
+#ProfileStudent p {margin: 0px;}
+
+#ProfileStudent ul,#ProfileStudent li {
+	margin: 0px;
+	list-style-type: none;
+}
+
+
+/* ------------------------------------ */
+
+
+
+/*//////////////////////////////////////////////////////////////////
+[ Table ]*/
+
+.limiterProfile {
+  width: 100%;
+  margin: 0 auto;
+}
+
+#ProfileStudent .container-table100 {
+  width: 100%;
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 33px 30px;
+}
+
+#ProfileStudent .wrap-table100 {
+  width: 960px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+#ProfileStudent .table {
+  width: 100%;
+  display: table;
+  margin: 0;
+}
+
+@media screen and (max-width: 768px) {
+  #ProfileStudent .table {
+    display: block;
+  }
+}
+
+#ProfileStudent .row {
+  display: table-row;
+  background: #fff;
+}
+
+#ProfileStudent .row.header {
+  color: #ffffff;
+  background: #6c7ae0;
+}
+
+@media screen and (max-width: 768px) {
+  #ProfileStudent .row {
+    display: block;
+  }
+
+  #ProfileStudent .row.header {
+    padding: 0;
+    height: 0px;
+  }
+
+  #ProfileStudent .row.header .cell {
+    display: none;
+  }
+
+  #ProfileStudent .row .cell:before {
+    font-family: 'Alegreya', serif;
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-size: 12px;
+    color: #808080;
+    line-height: 1.2;
+    text-transform: uppercase;
+    font-weight: unset !important;
+
+    margin-bottom: 13px;
+    content: attr(data-title);
+    min-width: 98px;
+    display: block;
+  }
+}
+
+#ProfileStudent .cell {
+  display: table-cell;
+}
+
+@media screen and (max-width: 768px) {
+  #ProfileStudent .cell {
+    display: block;
+  }
+}
+
+#ProfileStudent .row .cell {
+  font-family: 'Alegreya', serif;
+    font-family: 'PT Sans Narrow', sans-serif;
+  font-size: 15px;
+  color: #666666;
+  line-height: 1.2;
+  font-weight: unset !important;
+
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+#ProfileStudent .row.header .cell {
+  font-family: 'Alegreya', serif;
+    font-family: 'PT Sans Narrow', sans-serif;
+  font-size: 18px;
+  color: #fff;
+  line-height: 1.2;
+  font-weight: unset !important;
+
+  padding-top: 19px;
+  padding-bottom: 19px;
+}
+
+#ProfileStudent .row .cell:nth-child(1) {
+  width: 500px;
+  padding-left: 40px;
+}
+
+#ProfileStudent .row .cell:nth-child(2) {
+  width: 160px;
+}
+
+#ProfileStudent .row .cell:nth-child(3) {
+  width: 250px;
+}
+
+#ProfileStudent .row .cell:nth-child(4) {
+  width: 190px;
+}
+
+
+#ProfileStudent .table,#ProfileStudent .row {
+  width: 100% !important;
+}
+
+#ProfileStudent .row:hover {
+  background-color: #ececff;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  #ProfileStudent .row {
+    border-bottom: 1px solid #f2f2f2;
+    padding-bottom: 18px;
+    padding-top: 30px;
+    padding-right: 15px;
+    margin: 0;
+  }
+
+  #ProfileStudent .row .cell {
+    border: none;
+    padding-left: 30px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+  #ProfileStudent .row .cell:nth-child(1) {
+    padding-left: 30px;
+  }
+
+  #ProfileStudent .row .cell {
+    font-family: 'Alegreya', serif;
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-size: 18px;
+    color: #555555;
+    line-height: 1.2;
+    font-weight: unset !important;
+  }
+
+  #ProfileStudent .table,#ProfileStudent .row,#ProfileStudent .cell {
+    width: 100% !important;
+  }
+
+    </style>
+
+	<div id="ProfileStudent">
+        <br><br><br><br>
+	<h3 style="text-align: center">{{ student.Name }}</h3>
+	<img src = "..\..\media\{{ student.image }}">
+	<div class="limiterProfile">
+		<div class="container-table100">
+			<div class="wrap-table100">
+					<div class="table">
+						<div class="row">
+							<div class="cell">
+								Name:
+							</div>
+							<div class="cell">
+								{{ student.Name }}
+							</div>
+						</div>
+						<div class="row">
+							<div class="cell">
+								Roll:
+							</div>
+							<div class="cell">
+								{{ student.Roll}}
+							</div>
+						</div>
+						<div class="row">
+							<div class="cell">
+								Guardian's Number:
+							</div>
+							<div class="cell">
+								{{ student.Guardian_Mobile_No}}
+							</div>
+						</div>
+						<div class="row">
+							<div class="cell">
+								Father's Name:
+							</div>
+							<div class="cell">
+								{{ student.Father_Name}}
+							</div>
+						</div>
+						<div class="row">
+							<div class="cell">
+								Mother's Name:
+							</div>
+							<div class="cell">
+                                {{ student.Mother_Name}}
+							</div>
+						</div>
+						<div class="row">
+							<div class="cell">
+								Group:
+							</div>
+							<div class="cell">
+                                {{ student.Group}}
+							</div>
+						</div>
+						<div class="row">
+							<div class="cell">
+								Gender:
+							</div>
+							<div class="cell">
+								{{ student.Sex}}
+							</div>
+						</div>
+						<div class="row">
+							<div class="cell">
+								Session:
+							</div>
+							<div class="cell">
+								{{ student.Session}}
+							</div>
+						</div>
+					</div>
+			</div>
+		</div>
+	</div>
+	</div>
+
+
+
+	<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/select2/select2.min.js' %}"></script>
+
+
+<script type="text/javascript">
+
+(function ($) {
+    "use strict";
+
+
+
+
+})(jQuery);
+</script>
+
+
+</body>
+{% endblock %}
+</body>

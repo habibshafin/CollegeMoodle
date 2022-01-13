@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}CT Marks:{{ ct.ExamID.TermId }}{% endblock %}
+
+<body>
+{% block content %}
+    <br><br><br>
+    Exam ID: {{ ct.ExamID.ExamID }} &nbsp;&nbsp;&nbsp;&nbsp;
+    CT ID: {{ ct.ctId }} &nbsp;&nbsp;&nbsp;&nbsp;
+    Session: {{ ct.ExamID.Session }}-{{ ct.ExamID.Session|add:"1" }} &nbsp;&nbsp;&nbsp;&nbsp;
+    Group:  {% if ct.ExamID.Group == "S" %}
+                    Science
+                {% elif ct.ExamID.Group == "C" %}
+                    Commerce
+                {% else %}
+                    Arts
+            {% endif %} &nbsp;&nbsp;&nbsp;&nbsp;
+    Examiner: {{ ct.ExamID.Examiner }} &nbsp;&nbsp;&nbsp;&nbsp;
+    <br>
+    Term: {{ ct.ExamID.TermId }} &nbsp;&nbsp;&nbsp;&nbsp;
+    SubjectName(Code): {{ ct.ExamID.Sub_Code }} ({{ ct.ExamID.Sub_Code.Sub_Code }}) &nbsp;&nbsp;&nbsp;&nbsp;
+    Full Mark : {{ ct.TotalMarks }} &nbsp;&nbsp;&nbsp;&nbsp;
+    weight(%) of CT: {{ ct.ctPercentage }}&nbsp;&nbsp;&nbsp;&nbsp;
+    isResultEntered = {{ ct.isResultEntered }}
+    <br><br>
+
+    {% if ct.isResultEntered %}
+        <table class="table table-striped">
+
+            <thead>
+            <tr>
+                <th>Roll</th> <th>Name</th> <th>CT Mark</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for mark in marks %}
+                <tr>
+                    <td>{{ mark.Roll.Roll }}</td>
+                    <td>{{ mark.Roll.Name }}</td>
+                    <td>{{ mark.AchievedMarks }}</td>
+                    <td><a href = "{% url 'exam:ctMarkUpdate' ctID=ct.ctId roll=mark.Roll.Roll %}"  class="btn btn-primary" >Mark Update</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+
+    {% else %}
+        <h3>Result Is Not Entered Yet..Come back again after uploading your mark</h3>
+    {% endif %}
+{% endblock %}
+</body>

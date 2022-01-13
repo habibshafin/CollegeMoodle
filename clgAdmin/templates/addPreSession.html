@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Add in Existing Session{% endblock %}
+
+{% load static %}
+<!-- {% block nav-home %}<li ><a href="">Home</a></li>{% endblock %}-->
+<!--{% block nav-addStudent %}  <li class="active"><a href="/addStudent">New Student</a></li> {% endblock %}-->
+<body>
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
+<div style="background: linear-gradient(rgba(250, 252, 249, 0.8),rgba(65, 148, 176, 0.7));height: 800px;">
+<div class="form-style-5" style="background:  #ffff99">
+    <br><br><br><br>
+    <h4 style="color: #800033;"><b>Adding New Students to Existing Session</b></h4><br>
+    <form action="{% url 'clgAdmin:preSession' %}" method="post">
+        {% csrf_token %}
+        <label for="session">  Enter Session</label>
+        <select class="" id="session" name="session" >
+
+        </select>
+        <label for="group">  Enter Group</label>
+        <select class="" id="group" name="group" required>
+            <option value="1">Science</option>
+            <option value="3">Commerce</option>
+            <option value="2">Humanities</option>
+        </select>
+        <label for="year">  Enter YearStatus</label>
+        <select class="" id="year" name="YearStatus" required>
+            <option value="1">First Year</option>
+            <option value="2">Second Year</option>
+        </select>
+        <div class="form-group">
+            <input type="text"  class="form-control" name="nums" placeholder="Enter Number of Students" required>
+        </div>
+        <button class="btn btn-info" type="submit">Create Students</button>
+    </form>
+</div>
+    </div>
+<script type="text/javascript">
+      var year = new Date().getFullYear()-2;
+      string = ""
+      for(var i =0; i<5; i++ ){
+            string = string + "<option value=" + year + ">" + year + "</option>";
+            year = year+1;
+      }
+      document.getElementById("session").innerHTML = string;
+      </script>
+ {% endblock %}
+  </body>

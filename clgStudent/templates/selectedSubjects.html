@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %} Your Subjects: {{student.Roll}} {% endblock %}
+
+<body>
+{% block content %}
+    <br><br>
+
+
+    <h3>
+        Roll: {{ studentInfo.Roll }}
+        Name: {{ studentInfo.Name }}
+    </h3>
+
+    <u><h2>Compulsory:</h2></u>
+
+    <h4>
+        <ol>
+            <li>{{ studentSubs.comSub_11 }} ({{ studentSubs.comSub_11.Sub_Code }})</li>
+            <li>{{ studentSubs.comSub_12 }} ({{ studentSubs.comSub_12.Sub_Code }})</li>
+            <li>{{ studentSubs.comSub_21 }} ({{ studentSubs.comSub_21.Sub_Code }})</li>
+            <li>{{ studentSubs.comSub_22 }} ({{ studentSubs.comSub_22.Sub_Code }})</li>
+            <li>{{ studentSubs.comSub_31 }} ({{ studentSubs.comSub_31.Sub_Code }})</li>
+            <li>{{ studentSubs.comSub_32 }} ({{ studentSubs.comSub_32.Sub_Code }})</li>
+        </ol>
+    </h4>
+
+    <h2><u>Optional:</u></h2>
+
+    <h4>
+        <ol>
+            <li>{{ studentSubs.opSub_11 }} ({{ studentSubs.opSub_11.Sub_Code }})</li>
+            <li>{{ studentSubs.opSub_12 }} ({{ studentSubs.opSub_12.Sub_Code }})</li>
+        </ol>
+    </h4>
+
+{% endblock %}
+</body>

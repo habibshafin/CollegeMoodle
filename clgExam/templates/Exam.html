@@ -1,0 +1,483 @@
+{%  load static %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head><meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>REGISTRATION FORM</title>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+         <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+      <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+      <link
+    href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500&family=PT+Sans+Narrow:wght@400;700&display=swap"
+    rel="stylesheet">
+    <title>
+      exam de bara
+    </title>
+
+    <style >
+        body{
+            background: linear-gradient(rgba(250, 252, 249, 0.8),rgba(65, 148, 176, 0.7));;
+        }
+        input[type=number] {
+            padding: 12px 20px;
+            margin: 8px 0;
+            width: 250px;
+            height: 30px;
+            box-sizing: border-box;
+            border: 2px solid #000000;
+            -webkit-transition: 0.5s;
+            transition: 0.5s;
+            outline: none;
+}
+        input[type=number]:focus {
+            border: 3px solid #009999;
+        }
+
+    </style>
+
+  </head>
+  <body>
+{## Need to use in Exam.html--> /exam/ ---> {% url 'exam:create' %}#}
+<div class="container">
+<form action="{% url 'exam:create' %}" method="POST">
+    {% csrf_token %}
+    <label for="TermName">Select term </label><br>
+    <select id = "TermName" name="TermName">
+      <option value='1st Year Mid Term'>1st Year Mid Term</option>
+      <option value='1st Year Final'>1st Year Final Term</option>
+      <option value='2nd Year Pre-Test'>2nd Year Pre-Test Term</option>
+      <option value='2nd Year Test'>2nd Year Test Term</option>
+    </select> <br>
+
+    <label for="session" class="form-label"><b> Session</b></label>
+        <select class="form-control" style="width: 150px;" id="session" name="Session">
+    </select>
+
+    <label for="Group"> Select Group </label><br>
+    <select id = "Group" name="Group" onclick="Subject_list()" required>
+      <option disabled="" selected="">select one</option>
+      <option value='Science'>Science</option>
+      <option value='Commerce'>Commerce</option>
+      <option value='Arts'>Arts</option>
+    </select>
+    <br>
+
+    <label for="Subject"> Select Subject </label><br>
+    <select id = "Subject" name="Subject" onclick="isPracticalOpen()" required>
+    </select>
+    <br><br>
+    <br>
+    <label>Do you take any ct?</label><br>
+      <input type="checkbox" id="yesct" name = "yesct"  value = "off"  onclick="clickYes()">
+      <label for="yesct">Yes</label><br>
+      <br>
+
+
+    <div id="ctSection" style="display: block">
+
+      <h3>CT Section</h3>
+      <div id="div1" style="display: block">
+      <label>How many CT:</label>
+      <input type="number" id="countCt" name="countCt"  placeholder="Amount of CT" disabled="true" onchange="ctChange()" required>
+      <button type="button" class="btn btn-info" id="confirm" onclick="ctCount()">Confirm Ct</button>
+
+      <br>
+      </div>
+      <div id="div2" style="display: block">
+      <label>Is the mark same?</label><br>
+      <input type="radio" id="yes" name="ctType" value = "same"onclick="clickSameYes()" disabled="true" required>
+      <label for="yes">Yes</label><br>
+      <input type="radio" id="no" name="ctType" value="not_same" onclick="clickSameNo()" disabled="true" required>
+      <label for="No">No</label><br>
+     </div>
+
+    <div id="div3" ></div>
+
+    </div>
+ <div id="div4" style="display: none">
+       <label>Do you take any practical?</label><br>
+      <input type="checkbox" id="yespractical" name="yespractical" value="Yes" onclick="clickPracticalYes()" disabled="true">
+    </div>
+
+    <div id="practical" style="display: none">
+      <label><h2>Practical Section</h2></label><br>
+    <label for="PracticalMark"> Enter Total mark of Practical</label>
+    <input type="number" name="PracticalMark" id="PracticalMark"  required><br>
+
+    <label for="Practicalpercent"> Enter percentage of Practical</label>
+    <input type="number" name="Practicalpercent" id="Practicalpercent"  required><br>
+
+    <label for="PracticalPassMark"> Enter pass mark of Practical</label>
+    <input type="number" name="PracticalPassMark" id="PracticalPassMark"  required> <br>
+</div>
+
+      <br><br><br>
+    <br><br><br>
+    <div  id="termFinal" style="display: block">
+        <h3> Term Final Exam </h3>
+      <label> Select Term Mark </label><br>
+    <label for="TermFinalMark"> Enter Total mark of Term Final</label>
+    <input type="number" name="TermFinalMark" id="TermFinalMark"  placeholder="Enter Total Mark" required>
+        <br>
+
+    <label for="TermFinalCQMark"> Enter CQ mark of Term Final</label>
+    <input type="number" name="TermFinalCQMark" id="TermFinalCQMark" placeholder="Enter CQ Mark" required>
+<br>
+    <label for="TermFinalMCQMark"> Enter MCQ mark of Term Final</label>
+    <input type="number" name="TermFinalMCQMark" id="TermFinalMCQMark" placeholder="Enter MCQ Mark"  value="0" >
+<br>
+<label for="TermFinalCQPassMark"> Enter Percentage of Pass in Term Final</label>
+    <input type="number" name="TermFinalPasspercent" id="TermFinalPasspercent"  placeholder="Enter Percentage of Pass Mark" required>
+
+<br>
+        <label for="TermFinalpercent"> Enter percentage of Term Final</label>
+    <input type="number" name="TermFinalPercent" id="TermFinalPercent"  placeholder="Enter Percentage of Term Final" required>
+
+
+    <br><br>
+    </div>
+    <input type="submit" class="btn btn-danger" name="submit" value="submit">
+  </form>
+</div>
+  <script type="text/javascript">
+        var currentInput=0;
+
+     function Subject_list()
+      {
+          Reset();
+          var Science_sub = ["Bangla1","Bangla2","English1","English2","ICT","Chemistry1","Chemistry2","Physics1","Physics2","Higher Math1","Higher Math2",
+          "Biology1","Biology2","Psychology1","Psychology2","Geography1","Geography2","Statistics1","Statistics2","Eng_Drawing1","Eng_Drawing2","Agriculture1","Agriculture2"];
+        var Science_Code = ["101","102","107","108","275","176","177","174","175","265","266","178","179","123","124","125","126","129","130","182","183","239","240"];
+        var Commerce_sub = ["Bangla1","Bangla2","English1","English2","ICT","Accounting1","Accounting2","Business Organization and Management 1","Business Organization and Management 2","Finance, Banking, and Insurance I","Finance, Banking, and Insurance II","Production Management and Marketing I","Production Management and Marketing II","Statistics I","Statistics II","Geography I","Geography II","Agriculture Education (Theoretical) I","Agriculture Education (Theoretical) II","Home economics I","Home economics II","Economics I","Economics II"];
+        Commerce_code = ["101","102","107","108","275","253","254","277","278","292","293","286","287","129","130","125","126","239","240","273","274","109","110"];
+        var Arts_sub = ["Bangla I","Bangla II","English1","English2","ICT","Logic I","Logic II","Sociology I","Sociology II","Islamic History & Culture I","Islamic History & Culture II","Civic & Good Governance I","Civic & Good Governance II","Social Work I","Social Work II","History I","History II","Geography I","Geography II","Economics I","Economics II","Psychology I","Psychology II", "Statistics I", "Statistics II","Agriculture Education (Theoretical) I","Agriculture Education (Theoretical) II","Soil Science (Theoretical) I","Soil Science (Theoretical) II","Home economics I","Home economics II","Higher Mathematics I","Higher Mathematics II","Arts and crafts (Theoretical) I","Arts and crafts (Theoretical) II"];
+        var Arts_Code = ["101","102","107","108","275","121","122","117","118","267","268","269","270","271","272","304","305","125","126","109","110","123","124","129","130","239","240","288","289","273","274","265","266","225","226"];
+
+        var t = document.getElementById("Group").value
+         var string = "<option disabled selected>select one</option>";
+        if(!t.localeCompare("Science"))
+        {
+
+         for (i = 0; i < Science_sub.length; i++) {
+             string = string + "<option value=" + Science_Code[i] + ">" + Science_sub[i] + "</option>";
+         }
+         document.getElementById("Subject").innerHTML = string;
+        }
+        else if(!t.localeCompare("Commerce"))
+        {
+         for (i = 0; i < Science_sub.length; i++) {
+             string = string + "<option value=" + Commerce_code[i] + ">" + Commerce_sub[i] + "</option>";
+         }
+         document.getElementById("Subject").innerHTML = string;
+        }
+        else if(!t.localeCompare("Arts")){
+
+         for (i = 0; i < Science_sub.length; i++) {
+             string = string + "<option value=" + Arts_Code[i] + ">" + Arts_sub[i] + "</option>";
+         }
+         document.getElementById("Subject").innerHTML = string;
+        }
+
+      }
+
+
+
+
+
+
+
+      function clickYes() {
+          if (document.getElementById('yesct').checked != false) {
+              document.getElementById('yesct').checked = true;
+              document.getElementById('yesct').value = "on";
+              console.log(document.getElementById('yesct').value);
+              document.getElementById('countCt').disabled = false;
+          } else {
+              document.getElementById('yesct').checked = false;
+              document.getElementById('countCt').value="";
+              document.getElementById('yes').checked=false;
+              document.getElementById('no').checked=false;
+              document.getElementById('yes').disabled=true;
+              document.getElementById('no').disabled=true;
+              var numOfElements=document.getElementById("div3").getElementsByTagName("input").length;
+            if(numOfElements>0)
+            {
+                const myNode = document.getElementById("div3");
+                myNode.innerHTML = '';
+            }
+
+              document.getElementById('countCt').disabled = true;
+              document.getElementById('yesct').value = "off";
+              console.log(document.getElementById('yesct').value);
+          }
+
+      }
+
+
+
+      function gotMark(){
+        document.getElementById('div1').style.display="block";
+      }
+
+
+
+
+      function ctCount(){
+        document.getElementById('yes').disabled=false;
+        document.getElementById('no').disabled=false;
+        if(document.getElementById('countCt').value!="")
+        {
+            document.getElementById('confirm').disabled=true;
+
+        }
+      }
+
+      function ctChange(){
+            document.getElementById('yes').required=true;
+            document.getElementById('no').required=true;
+             document.getElementById('yes').checked=false;
+             document.getElementById('no').checked=false;
+             var numOfElements=document.getElementById("div3").getElementsByTagName("input").length;
+             if(numOfElements>0)
+                {
+                const myNode = document.getElementById("div3");
+                myNode.innerHTML = '';
+                }
+
+
+
+      }
+
+      function clickSameYes(){
+        //document.getElementById('no').disabled=true;
+        //document.getElementById('yes').disabled=true;
+        document.getElementById('yes').checked=true;
+        document.getElementById('no').required=false;
+        if(document.getElementById('no').checked==true)
+        {
+            document.getElementById('no').checked=false;
+        }
+        var numOfElements=document.getElementById("div3").getElementsByTagName("input").length;
+        if(numOfElements>0)
+        {
+            const myNode = document.getElementById("div3");
+            myNode.innerHTML = '';
+        }
+
+
+        var current=document.getElementById("div3");
+        var input = document.createElement("input");
+        input.type = "number";
+        input.name="ct1";
+        input.placeholder="enter your ct number";
+        input.required=true;
+        console.log(input.name);
+        current.appendChild(input);
+        var input1=document.createElement("input");
+        input1.type="number";
+        input1.name="percentage1";
+        input1.placeholder="Enter this ct's percentage";
+        input1.required=true;
+        console.log(input1.name);
+        current.appendChild(input1);
+        var linebreak=document.createElement("br");
+        current.appendChild(linebreak);
+      }
+
+      function clickSameNo(){
+        document.getElementById('no').checked=true;
+        document.getElementById('yes').required=false;
+        if(document.getElementById(('yes').checked==true))
+        {
+            document.getElementById('yes').checked=false;
+        }
+        //document.getElementById('no').disabled=true;
+        //document.getElementById('yes').disabled=false;
+
+        var userInput = parseInt(document.getElementsByName('countCt')[0].value);
+        var string2="";
+        var current=document.getElementById("div3");
+        var numOfElements=document.getElementById("div3").getElementsByTagName("input").length;
+        console.log(numOfElements);
+        if(numOfElements>0)
+          {
+            const myNode = document.getElementById("div3");
+            myNode.innerHTML = '';
+
+        }
+        for(var i=0; i<userInput;i++)
+            {
+              var input = document.createElement("input");
+              input.type = "number";
+              input.name="ct"+i;
+              input.placeholder="enter your ct number";
+              input.required=true;
+              console.log(input.name);
+              current.appendChild(input);
+              var input1=document.createElement("input");
+              input1.type="number";
+              input1.name="percentage"+i;
+              input1.placeholder="Enter this ct's percentage";
+              input1.required=true;
+              console.log(input1.name);
+              current.appendChild(input1);
+              var linebreak=document.createElement("br");
+              current.appendChild(linebreak);
+              current.appendChild(linebreak);
+              current.appendChild(linebreak);
+            }
+        }
+function isPractical(){
+  var selected_code=document.getElementById("Subject").value;
+  var practicalCode=["275","174","175","176","177","178","179","265","266","125","126","125","126"];
+  for(var i=0;i<practicalCode.length;i++)
+  {
+    if(selected_code==practicalCode[i])
+      return true;
+  }
+  return false;
+}
+
+
+        function isPracticalOpen(){
+         Reset();
+            if(document.getElementById('yespractical').checked==true)
+          {
+              document.getElementById('yespractical').checked=false;
+              document.getElementById('practical').style.display="none";
+          }
+          if(isPractical())
+          {
+
+            document.getElementById('div4').style.display="block";
+            document.getElementById('yespractical').disabled=false;
+            document.getElementById('PracticalMark').value="";
+            document.getElementById('PracticalPassMark').value="";
+            document.getElementById('Practicalpercent').value="";
+
+           // document.getElementById('div4').style.display="block";
+
+          }
+          else
+          {
+            document.getElementById('div4').style.display="none";
+            document.getElementById('practical').style.display="none";
+            document.getElementById('yespractical').checked=false;
+            document.getElementById('PracticalMark').value="";
+            document.getElementById('PracticalPassMark').value="";
+            document.getElementById('Practicalpercent').value="";
+            document.getElementById('PracticalMark').required=false;
+            document.getElementById('PracticalPassMark').required=false;
+            document.getElementById('Practicalpercent').required=false;
+
+          }
+
+        }
+
+        function clickPracticalYes(){
+          console.log(document.getElementById("Subject").value);
+         // if(document.getElementById('div4').style.display=="none")
+          //{
+           //     document.getElementById('PracticalMark').disabled=true;
+            //    document.getElementById('Practicalpercent').disabled=true;
+             //   document.getElementById('PracticalPassMark').disabled=true;
+
+     //     }
+            console.log("call hoise");
+            if(document.getElementById('yespractical').checked==true)
+            {
+                if(isPractical())
+          {
+              document.getElementById('practical').style.display="block";
+
+                document.getElementById('PracticalMark').required=true;
+                document.getElementById('Practicalpercent').required=true;
+                document.getElementById('PracticalPassMark').required=true;
+          }
+          else
+          {
+
+                document.getElementById('practical').style.display="none";
+                document.getElementById('PracticalMark').value="";
+                document.getElementById('Practicalpercent').value="";
+                document.getElementById('PracticalPassMark').value="";
+          }
+          }
+            else
+            {
+                document.getElementById('PracticalMark').value="";
+                document.getElementById('Practicalpercent').value="";
+                document.getElementById('PracticalPassMark').value="";
+                document.getElementById('PracticalMark').required=false;
+                document.getElementById('Practicalpercent').required=false;
+                document.getElementById('PracticalPassMark').required=false;
+                document.getElementById('practical').style.display="none";
+
+            }
+
+        }
+
+        function clickPracticalNo(){
+
+        }
+
+        function Reset()
+        {
+            document.getElementById('yesct').checked=false;
+            document.getElementById('countCt').disabled=true;
+            document.getElementById('countCt').value="";
+            document.getElementById('yes').checked=false;
+            document.getElementById('no').checked=false;
+            document.getElementById('yesct').value="off";
+            var numOfElements=document.getElementById("div3").getElementsByTagName("input").length;
+            if(numOfElements>0)
+            {
+            const myNode = document.getElementById("div3");
+            myNode.innerHTML = '';
+            }
+            document.getElementById('yespractical').checked=false;
+            document.getElementById('PracticalMark').value="";
+            document.getElementById('Practicalpercent').value="";
+            document.getElementById('PracticalPassMark').value="";
+            document.getElementById('PracticalMark').required=false;
+            document.getElementById('Practicalpercent').required=false;
+            document.getElementById('PracticalPassMark').required=false;
+            document.getElementById('practical').style.display="none";
+            document.getElementById('TermFinalMark').value="";
+            document.getElementById('TermFinalCQMark').value="";
+            document.getElementById('TermFinalMCQMark').value="";
+            document.getElementById('TermFinalPasspercent').value="";
+            document.getElementById('TermFinalPercent').value="";
+
+             }
+
+
+
+
+      var year = new Date().getFullYear()-2;
+      str = "";
+      for(var i =0;i<5; i++ ){
+          if(i==2)
+          {
+              str = str + "<option value="+year+">"+year+"</option>";
+              year=year+1;
+              continue;
+          }
+            str = str + "<option value="+year+">"+year+"</option>";
+            year = year+1;
+            console.log(year);
+      }
+      document.getElementById("session").innerHTML = str;
+      select=document.getElementById('session');
+      option = select.options[2];
+      option.setAttribute('selected', true);
+
+  </script>
+
+
+    <br>
+    </body>
+</html>

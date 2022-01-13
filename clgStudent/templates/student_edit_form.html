@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% block nav-home %}<li ><a href="{% url 'home' %}">Home</a></li>{% endblock %}
+{% block nav-editprofile %}<li class="active"><a href="{% url 'student:edit' %}">Edit Profile</a></li>{% endblock %}
+{% block title %} Edit Profile: {{student.Roll}} {% endblock %}
+<body>
+    {% block content %}
+    <div style="margin-top:15px;background: linear-gradient(rgba(250, 252, 249, 0.8),rgba(65, 148, 176, 0.7));height: 900px;">
+	  	<div class="container form-container form">
+            <br><br>
+	  		<h3 class="text-center" style="color: #800033;"><b>Student Register</b></h3><br>
+      		<form enctype="multipart/form-data" method="POST" action="{% url 'student:edit' %}">
+                {% csrf_token %}
+	  	<div class="form-group">
+          <div class="row">
+            <div class="col-12 col-sm-6">
+              <div class="form-group">
+                <label for="roll" class="form-label"><b> Roll:</b></label>
+                <input class="form-control" type="number" style="width: 150px;" id="roll" name="Roll"required placeholder="{{student.Roll}}"disabled>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6">
+              <label for="Fname" class="form-label"><b> Name:</b></label>
+              <input class="form-control" type="text" id="Fname" required placeholder="Type Your Name"
+                pattern="[A-Za-z\s]+" maxlength="40" name="Name">
+
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-12 col-sm-6">
+              <div class="form-group">
+                <label for="group" class="form-label"><b> Group:</b></label>
+                <select required="" class="form-control" style="width: 150px;" id="group" name="Group">
+                <option value="disbled" selected="selected" disabled="disabled">Select One</option>
+                <option value="S">Science</option>
+                <option value="C">Commerce</option>
+                <option value="A">Arts</option>
+              </select>
+          </div>
+      </div>
+      <div class="col-12 col-sm-6">
+            <label for="gender" class="form-label"><b> Gender</b></label>
+              <select required="" class="form-control" style="width: 150px;" id="gender" name="Sex">
+                <option value="disbled" selected="selected" disabled="disabled">Select One</option>
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+                <option value="O">Other</option>
+              </select>
+        </div>
+    </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-12 col-sm-6">
+              <div class="form-group">
+                <label for="fatherName" class="form-label"><b> Father's Name:</b></label>
+                <input class="form-control" type="text" id="fatherName" name="Father_Name" required placeholder="Enter your Father's Name" pattern="[A-Za-z\s]+" maxlength="40">
+              </div>
+            </div>
+            <div class="col-12 col-sm-6">
+              <label for="motherName" class="form-label"><b> Mother's Name:</b></label>
+              <input class="form-control" type="text" id="motherName" name="Mother_Name" required placeholder="Type Your Mother's Name"
+                pattern="[A-Za-z\s]+" maxlength="40">
+
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="dob" class="form-label"><b>Date of Birth:</b> </label>
+              <input autocomplete="off" required=""  name="DOB" style="width: 170px;" required class="form-control hasDatepicker" type="date" id="dob">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="phone"><b>Guardian's Mobile:</b></label>
+          <input required="" class="form-control" type="text" id="phone" name="Guardian_Mobile_No" style="width: 200px;" placeholder="0181*******" pattern="\d+"
+            maxlength="20">
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <div class="col-12 col-sm-6">
+              <div class="form-group">
+              	<label for="session" class="form-label"><b> Session</b></label>
+              <select class="form-control" style="width: 150px;" id="session" name="Session">
+
+
+              </select>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6">
+              <label for="status" class="form-label"><b> Status</b></label>
+              <select required="" class="form-control" style="width: 150px;" id="status" name=""YearStatus>
+                <option value="disbled" selected="selected" disabled="disabled">Select One</option>
+                <option value="1">First Year</option>
+                <option value="2">Second Year</option>
+                <option value="3">Test Passed</option>
+              </select>
+
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="pwd"><b> Password</b></label>
+          <input required="" class="form-control" id="pwd" name="Password" type="password"
+            placeholder="8-16 characters"  maxlength="15">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label"><b> Passport Image:</b></label><br>
+          {{form.image}}
+        </div>
+
+        <div class="form-group">
+          <label for="email">E-mail:</label>
+        	<input type="email"  class="form-control" id="email" name="email" placeholder="Enter E-mail">
+
+
+        </div>
+
+         <button class="btn btn-danger">Submit</button>
+
+    </form>
+</div>
+</div>
+
+
+<script type="text/javascript">
+      var year = new Date().getFullYear()-2;
+      string = "";
+      for(var i =0; i<5; i++ ){
+            string = string + "<option value="+year+">"+year+"</option>";
+            year = year+1;
+      }
+      document.getElementById("session").innerHTML = string;
+      </script>
+
+
+
+{% endblock %}
+</body>
+
+
+

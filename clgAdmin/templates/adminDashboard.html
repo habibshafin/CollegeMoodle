@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Admin Dashboard:{{collegeAdmin.username}}{% endblock %}
+
+<body>
+    {% block content %}
+    <div style="background: linear-gradient(rgba(250, 252, 249, 0.8),rgba(65, 148, 176, 0.7));height: 800px;">
+      <br><br><br><br><br>
+        <p align="center">Admin Dashboard<br>
+        <b>Admin Profile</b>
+        {{collegeAdmin.username}}<br>
+        {{collegeAdmin.email}} <br>
+        Joined  :{{collegeAdmin.date_joined}}<br>
+
+        Last Login(Not local) :{{collegeAdmin.last_login}}<br>
+      </p>
+    </div>
+{% endblock %}}
+</body>

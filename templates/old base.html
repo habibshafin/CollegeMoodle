@@ -1,0 +1,123 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+
+    <!-- Required meta tags -->
+    <head>
+        <title> {% block title %}
+    {% endblock %}</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+
+        <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500&family=PT+Sans+Narrow:wght@400;700&display=swap"rel="stylesheet">
+        <link rel="icon" type="image/png" href="{% static 'images/icons/favicon.ico' %}"/>
+        <!--===============================================================================================-->
+	    <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+        <!--===============================================================================================-->
+	    <link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css' %}">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}">
+        <!--===============================================================================================-->
+	    <link rel="stylesheet" type="text/css" href="{% static 'vendor/select2/select2.min.css' %}">
+        <!--===============================================================================================-->
+	    <link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+        <style>
+            #myDIV {
+                animation: mymove 1.5s;
+            }
+            @keyframes mymove {
+                0% {
+                    word-spacing: 60px;
+                }
+            }
+            #topheader .navbar-nav li > a {
+                text-transform: capitalize;
+                color: #333;
+                transition: background-color .2s, color .2s;
+
+            &:hover,
+            &:focus {
+                 background-color: #333;
+                 color: #fff;
+             }
+            }
+            #topheader .navbar-nav li.active > a {
+                background-color: #333;
+                color: #fff;
+            }
+        </style>
+    </head>
+    <body>
+    <div>
+        <div id="topheader">
+            <nav class="navbar navbar-default navbar-fixed-top shift">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">
+                        <img src="{% static 'img/flamingoLogo3.png' %}" height="49" style="margin-top: -15px;margin-left: -15px;margin-right: -20px;"  alt="">
+                        </a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            {% block nav-home %}<li class="active"><a href="{% url 'home' %}">Home</a></li>{% endblock %}
+                            {% if user.is_authenticated %}
+                            {% if user.is_active and user.is_staff %}
+                            {% block nav-addSession %}  <li><a href="{% url 'clgAdmin:addSession' %}">Add Session</a></li> {% endblock %}
+                            {% block nav-addPreSession %}  <li><a href="{% url 'clgAdmin:preSession' %}">Add In PreSession</a></li> {% endblock %}
+                            {% block nav-adminsRegister %}  <li><a href="{% url 'clgAdmin:addAdmin' %}">Add Admin</a></li> {% endblock %}
+                            {% block nav-studentReg %}<li ><a href="{% url 'clgAdmin:addNewStudent' %}">Add New Student</a></li> {% endblock %}
+                            {% block nav-showStudent %} <li ><a href="{% url 'clgAdmin:studentList' %}">Student-List</a></li> {% endblock %}
+                            {% block nav-showResult %}  <li><a href="/">Show Result</a></li> {% endblock %}
+                            {% block nav-addMarks %}  <li><a href="/">Add Marks</a></li> {% endblock %}
+                            {% block nav-logout %}<li><a href="/logout">Logout</a></li>{% endblock %}
+                            {% else %}
+                            {% block nav-editprofile %}<li><a href="{% url 'student:edit' %}">Edit Profile</a></li>{% endblock %}
+                            {% block nav-profile %}<li><a href="{% url 'student:info' %}">Profile</a></li>{% endblock %}
+                            {% block nav-choice %}<li><a href="{% url 'student:choice' %}">Choose Subject</a></li>{% endblock %}
+                            {% block nav-logout1 %}<li><a href="/logout">Logout</a></li>{% endblock %}
+                            {% endif %}
+                            {% else  %}
+                            {% block nav-login %}<li><a href="{% url 'student:login' %}">Log In</a></li>{% endblock %}
+                            {% block nav-admin %}<li><a href="{% url 'clgAdmin:login' %}">Admin-Login</a></li>{% endblock %}
+                            {% block nav-about %}<li><a href="/">About/Contact</a></li>{% endblock %}
+<!--                            @todo: Need to update about page -->
+                            {% endif %}
+                        </ul>
+                        <form class="navbar-form navbar-right">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search">
+                            </div>
+                            <button class="btn btn-success" type="submit">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    {% block content %}
+    {% endblock %}
+
+
+    </script>
+
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/index.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    </body>
+</html>

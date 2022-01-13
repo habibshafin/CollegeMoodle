@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+{#This is anik's Version which has been modified by Soumma later on ShowExam2.html #}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title> Show Exam</title>
+  </head>
+  <body>
+
+    <form method="GET">
+    {{ Exams.form.as_p }}
+    <button type="submit">Search</button>
+  </form>
+
+    <h2>Exam List</h2>
+    <table cellspacing="5" cellpadding="5" border="5" style="border: 5px solid black; padding:5px;">
+
+    <tr>
+    <th>Subject</th>
+    <th>Term</th>
+    <th>Session</th>
+    <th>Group</th>
+    </tr>
+
+    {% for exam in Exams.qs %}
+      <tr >
+        <td>{{ exam.Sub_Code.Sub_Name }}</td>
+        <td>{{ exam.TermId.TermName }}</td>
+        <td>{{ exam.Session }}</td>
+        {% if exam.Group == "S" %}
+            <td>Science </td>
+            {% elif exam.Group == "C" %}
+                <td>Commerce </td>
+            {% else %}
+                <td>Arts </td>
+        {% endif %}
+      </tr>
+
+    {% endfor %}
+
+  </table>
+
+{#<!--  <script >-->#}
+{##}
+{#<!--    console.log("dhur bara");-->#}
+{#<!--    {% for exam in Exams.qs %}-->#}
+{#<!--        console.log("{{ exam.Group }}")-->#}
+{#<!--    {% endfor %}-->#}
+{##}
+{#<!--  </script>-->#}
+
+  </body>
+</html>

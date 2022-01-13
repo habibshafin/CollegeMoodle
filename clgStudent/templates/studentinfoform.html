@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta name="viewport" content="width=device-width", initial-scale="1">
+      <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+  <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+<script type="text/javascript">
+    function Validate() {
+        var password = document.getElementById("pwd").value;
+        var confirmPassword = document.getElementById("confirm_password").value;
+        if (password != confirmPassword) {
+            alert("Passwords do not match.");
+            return false;
+        }
+        return true;
+    }
+</script>
+
+      <style>
+        .bg1{
+          background:red;
+        }
+        .bg2{
+          background:yellow;
+        }
+      </style>
+ </head>
+ <body>
+  <div class="container">
+    <br><br><br><br>
+    <form class="form-horizontal" role="form" method="POST" action="">
+      <form class="form-inline" role="form">
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="roll">Roll:</label>
+        <div class="col-sm-3">
+        <input type="number"  class="form-control" id="roll" placeholder="Enter your roll" style="width: 130px;" name="Roll">
+      </div>
+      <label class="col-sm-2 control-label" for="name">Name:</label>
+        <div class="col-sm-2">
+        <input type="text"  class="form-control" id="name" placeholder="Enter your name" style="width: 400px;" name="Name">
+      </div>
+      </div>
+      
+    </form>
+      <div class="col-sm-3">
+        <label class="col-sm-2" >Sex:</label>
+   {{form.Sex}}
+      </div>
+
+    <div class="form-group">
+        <label class="col-sm-2" >Group:</label>
+        
+
+    </div>
+      <form class="form-inline" role="form">
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="fName">Father Name:</label>
+        <div class="col-sm-5">
+        <input type="text"  class="form-control" id="fName" placeholder="Enter your father's name" style="width: 300px;" name="Father_Name">
+      </div>
+      
+      <label class="col-sm-2 control-label" for="mName">Mother Name:</label>
+        <div class="col-sm-2">
+        <input type="text"  class="form-control" id="mName" placeholder="Enter your mother's name" style="width: 400px;" name="Mother_Name">
+      </div>
+      </div>
+      
+    </form>
+    <br>
+
+<form class="form-inline" role="form">
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="dob">Date of Birth:</label>
+        <div class="col-sm-5">
+        <input type="Date"  class="form-control" id="dob" placeholder="Enter your Date of Birth" style="width: 200px;" name="DOB">
+      </div>
+      <label class="col-sm-2 control-label" for="phoneno">Guardian Mobile No:</label>
+        <div class="col-sm-2">
+        <input type="text"  class="form-control" id="phoneno" placeholder="Enter phone number here" style="width: 400px;" name="Guardian_Mobile_No">
+      </div>
+      </div>
+      
+    </form>
+
+     <div class="form-group">
+        <label class="col-sm-2" >Session:</label>
+
+
+    </div>
+   
+
+   <div class="form-group">
+        <label class="col-sm-2" >year Status:</label>
+        {{form.YearStatus}}
+    </div>
+    <div class="form-group">
+        <label for="pwd">Password:</label>
+        <input type="password"  class="form-control" id="pwd" placeholder="Enter Password" name="Password" style="width: 200px;" required><br>
+        <label for="confirm_password">Confirm Password:</label><br>
+        <input type="password"  class="form-control" id="confirm_password" placeholder="Enter Password Again" style="width: 200px;" required>
+      </div>
+    
+    
+
+  </form><br><br><br>
+  <button class="btn btn-danger" type="submit" onclick="return Validate()" value="insertRecord">Submit</button>
+
+  </div>
+   
+
+ </body>
+
+</html>

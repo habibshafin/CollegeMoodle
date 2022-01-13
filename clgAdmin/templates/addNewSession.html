@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Add New Session{% endblock %}
+<!--{% block nav-home %}<li><a href="/adminDashboard">Home<span class="sr-only">(current)</span></a></li>{% endblock %}-->
+<!--{% block nav-addSession %}  <li class="active"><a href="{% url 'clgAdmin:addSession' %}">Add Session</a></li> {% endblock %}-->
+{% load static %}
+<body>
+    {% block content %}
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+    <div style="background: linear-gradient(rgba(250, 252, 249, 0.8),rgba(65, 148, 176, 0.7));height: 800px;">
+
+    <div class="form-style-5" style="background:  #ffff99">
+        <br><br>
+      <h4 style="color: #800033;"><b>Adding New Session</b></h4><br>
+    <form  action="{% url 'clgAdmin:addSession' %}" method="post">
+      {% csrf_token %}
+      <input type="number" name="science" placeholder="Enter number of Science Students" required>
+      <input type="number" name="humanities" placeholder="Enter number of Humanities Students" required>
+      <input type="number" name="commerce" placeholder="Enter number of Commerce Students" required>
+      <label for="session">  Enter Session</label>
+      <select class="" id="session" name="session" required>
+      </select>
+      <input type="submit" name="" value="Confirm">
+    </form>
+    </div>
+    </div>
+    <script type="text/javascript">
+      var year = new Date().getFullYear()-2;
+      string = ""
+      for(var i =0; i<5; i++ ){
+            string = string + "<option value=" + year + ">" + year + "</option>";
+            year = year+1;
+      }
+      document.getElementById("session").innerHTML = string;
+      </script>
+{% endblock %}
+</body>

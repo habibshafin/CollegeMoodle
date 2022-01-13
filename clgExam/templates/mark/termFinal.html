@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block title %}TermFinal :{{ termFinal.ExamID.TermId }}{% endblock %}
+
+<body>
+{% block content %}
+
+    <br><br><br>
+    Exam ID: {{ termFinal.ExamID.ExamID }} &nbsp;&nbsp;&nbsp;&nbsp;
+    Session: {{ termFinal.ExamID.Session }}-{{ termFinal.ExamID.Session|add:"1" }} &nbsp;&nbsp;&nbsp;&nbsp;
+    Group:  {% if termFinal.ExamID.Group == "S" %}
+                    Science
+                {% elif termFinal.ExamID.Group == "C" %}
+                    Commerce
+                {% else %}
+                    Arts
+            {% endif %} &nbsp;&nbsp;&nbsp;&nbsp;
+    Examiner: {{ termFinal.ExamID.Examiner }} &nbsp;&nbsp;&nbsp;&nbsp;
+    <br>
+    Term: {{ termFinal.ExamID.TermId }} &nbsp;&nbsp;&nbsp;&nbsp;
+    SubjectName(Code): {{ termFinal.ExamID.Sub_Code }} ({{ termFinal.ExamID.Sub_Code.Sub_Code }}) &nbsp;&nbsp;&nbsp;&nbsp;
+    Full Mark CQ: {{ termFinal.CQ }} &nbsp;&nbsp;&nbsp;&nbsp;
+    {% if termFinal.MCQ > 0 %} Full Mark MCQ: {{ termFinal.MCQ }} &nbsp;&nbsp;&nbsp;&nbsp; {% endif %}
+    % of Pass Mark: {{ termFinal.PassPercentage }} &nbsp;&nbsp;&nbsp;&nbsp;
+    weight(%) of Term Final: {{ termFinal.TermFinalPercentage }}&nbsp;&nbsp;&nbsp;&nbsp;
+    isResultEntered = {{ termFinal.isResultEntered }}
+    <br><br>
+
+
+    {% if termFinal.isResultEntered %}
+        <table class="table table-striped">
+
+        {% if termFinal.MCQ > 0 %}
+
+            <thead>
+            <tr>
+                <th>Roll</th> <th>Name</th> <th>CQ</th> <th>MCQ</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for mark in marks %}
+                <tr>
+                    <td>{{ mark.Roll.Roll }}</td>
+                    <td>{{ mark.Roll.Name }}</td>
+                    <td>{{ mark.AchievedMarksCQ }}</td>
+                    <td>{{ mark.AchievedMarksMCQ }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+
+        {% else %}
+
+            <thead>
+            <tr>
+                <th>Roll</th> <th>Name</th> <th>CQ</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for mark in marks %}
+                <tr>
+                    <td>{{ mark.Roll.Roll }}</td>
+                    <td>{{ mark.Roll.Name }}</td>
+                    <td>{{ mark.AchievedMarksCQ }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+
+        {% endif %}
+
+    </table>
+
+    {% else %}
+        <h3>Result Is Not Entered Yet..Come back again after uploading your mark</h3>
+    {% endif %}
+
+{% endblock %}
+</body>

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}Practical Marks:{{ practical.ExamID.TermId }}{% endblock %}
+
+<body>
+{% block content %}
+    <br><br><br>
+    Exam ID: {{ practical.ExamID.ExamID }} &nbsp;&nbsp;&nbsp;&nbsp;
+    Practical ID: {{ practical.PracticalId }} &nbsp;&nbsp;&nbsp;&nbsp;
+    Session: {{ practical.ExamID.Session }}-{{ practical.ExamID.Session|add:"1" }} &nbsp;&nbsp;&nbsp;&nbsp;
+    Group:  {% if practical.ExamID.Group == "S" %}
+                    Science
+                {% elif practical.ExamID.Group == "C" %}
+                    Commerce
+                {% else %}
+                    Arts
+            {% endif %} &nbsp;&nbsp;&nbsp;&nbsp;
+    Examiner: {{ practical.ExamID.Examiner }} &nbsp;&nbsp;&nbsp;&nbsp;
+    <br>
+    Term: {{ practical.ExamID.TermId }} &nbsp;&nbsp;&nbsp;&nbsp;
+    SubjectName(Code): {{ practical.ExamID.Sub_Code }} ({{ practical.ExamID.Sub_Code.Sub_Code }}) &nbsp;&nbsp;&nbsp;&nbsp;
+    Full Mark : {{ practical.TotalMarks }} &nbsp;&nbsp;&nbsp;&nbsp;
+    Pass Mark = {{ practical.PassMarks }} &nbsp;&nbsp;&nbsp;&nbsp;
+    weight(%) of Practical: {{ practical.PracticalPercentage }}&nbsp;&nbsp;&nbsp;&nbsp;
+    isResultEntered = {{ practical.isResultEntered }}
+    <br><br>
+
+
+    {% if practical.isResultEntered %}
+        <table class="table table-striped">
+
+            <thead>
+            <tr>
+                <th>Roll</th> <th>Name</th> <th>Practical Mark</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for mark in marks %}
+                <tr>
+                    <td>{{ mark.Roll.Roll }}</td>
+                    <td>{{ mark.Roll.Name }}</td>
+                    <td>{{ mark.AchievedMarks }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+
+    {% else %}
+        <h3>Result Is Not Entered Yet..Come back again after uploading your mark</h3>
+    {% endif %}
+
+{% endblock %}
+</body>

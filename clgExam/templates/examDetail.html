@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+{% block title %}Exam Details:{{ exam.ExamID }}{% endblock %}
+
+<body>
+{% block content %}
+
+{#    showing basic exam info#}
+
+    <br><br><br>
+    <table class="table table-borderless">
+    <thead>
+        <tr>
+            <th>Exam ID: {{ exam.ExamID }}</th>
+            <th>Term: {{ exam.TermId.TermName }}</th>
+            <th>Subject: {{ exam.Sub_Code.Sub_Name }}</th>
+            <th>Session: {{ exam.Session }}</th>
+            <th>Group:{% if exam.Group == "S" %}
+                    Science
+                {% elif exam.Group == "C" %}
+                    Commerce
+                {% else %}
+                    Arts
+            {% endif %}</th>
+        </tr>
+    </thead>
+    </table>
+
+
+    <h1 align="center"> CT PART </h1>
+    {% if exam.CTs.exists %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>CT ID</th> <th>TOTAL MARKS</th> <th>CT PERCENTAGE</th> <th>RESULT STATUS:</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ct in exam.CTs.all %}
+                    <tr>
+                        <td>{{ ct.ctId }}</td>
+                        <td>{{ ct.TotalMarks }}</td>
+                        <td>{{ ct.ctPercentage }}</td>
+                        <td>{% if ct.isResultEntered %}
+                                UPLOADED
+                            {% else %}
+                                <p style="color:red">NOT UPLOADED YET</p>
+                            {% endif %}
+                        </td>
+                        <td><a href="{% url 'exam:ct-marksheet' pk=ct.ctId %}" class="btn btn-primary" >Download Marksheet</a></td>
+                        <td><form class="" action="{% url 'exam:ct-markupload' pk=ct.ctId %}" method="post" enctype="multipart/form-data">
+                          {%csrf_token%}
+                          <input type="file" id="ctfile1" name="ctfile{{ct.ctId}}">
+                          <button type="submit" class="btn btn-primary">Upload Marks</button>
+                        </form></td>
+                        <td><a href="{% url 'exam:ctMark' pk=ct.ctId %}" class="btn btn-primary" >Show CT Mark</a></td>
+                        <td><a href="{% url 'exam:editCt' pk=ct.ctId %}" class="btn btn-primary" >Edit</a></td>
+                        <td><a href="{% url 'exam:deleteCt' pk=ct.ctId %}" class="btn btn-danger"  onclick="return confirm('Are you sure you want to delete this?');"> Delete</a></td>
+
+                    </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+
+    {% else %}
+        <h3>No CT </h3> <br>
+    {% endif %}
+
+
+
+{#    showing practical info#}
+
+    <h1 align="center"> PRACTICAL PART </h1>
+    {% with practical=exam.practical %}
+    {% if practical.PracticalId %}
+        <table class="table table-borderless">
+            <thead>
+            <tr><th>Practical Id: {{ practical.PracticalId }}</th></tr>
+            <tr><th>TOTAL MARKS: {{ practical.TotalMarks }}</th></tr>
+            <tr><th>PASS MARKS: {{ practical.PassMarks }}</th></tr>
+            <tr><th>PERCENTAGE: {{ practical.PracticalPercentage }}</th></tr>
+            <tr><th>RESULT STATUS:
+                {% if practical.isResultEntered %}
+                    UPLOADED
+                {% else %}
+                    <font style="color:red">NOT UPLOADED YET</font>
+                {% endif %}</th></tr>
+            <tr>
+                <td><a href="{% url 'exam:practicalMark' pk=practical.PracticalId %}" class="btn btn-primary" >Show Practical Mark</a></td>
+                <td><a href="{% url 'exam:editPractical' pk=practical.PracticalId %}" class="btn btn-primary" >Edit</a></td>
+                <td><a href="{% url 'exam:deletePractical' pk=practical.PracticalId %}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this?');" > Delete</a></td>
+
+            </tr>
+            </thead>
+
+
+        </table>
+    {% else %}
+        <h3>No practical </h3> <br>
+    {% endif %}
+    {% endwith %}
+
+
+
+{#    showing term final info#}
+
+    <h1 align="center"> TERM FINAL PART </h1>
+
+    {#    OneToOne access korar jnno modelName SmallLetter-->(termfinal) likha lage#}
+    {% with termFinal=exam.termfinal %}
+    {% if termFinal.TermFinalId %}
+        <table class="table table-borderless">
+        <thead>
+            <tr><th>TERM FINAL ID: {{ termFinal.TermFinalId }}</th></tr>
+            <tr><th>TOTAL MARKS: {{ termFinal.TotalMarks }}</th></tr>
+            <tr><th>CQ: {{ termFinal.CQ }}</th></tr>
+            <tr><th>MCQ: {{ termFinal.MCQ }}</th></tr>
+            <tr><th>PASS PERCENTAGE: {{ termFinal.PassPercentage }}</th></tr>
+            <tr><th>PERCENTAGE: {{ termFinal.TermFinalPercentage }}</th></tr>
+            <tr><th>RESULT STATUS:
+                {% if termFinal.isResultEntered %}
+                    UPLOADED
+                {% else %}
+                    <font style="color:red">NOT UPLOADED YET</font>
+                {% endif %}</th></tr>
+            <tr>
+                <td><a href="{% url 'exam:termFinalMark' pk=termFinal.TermFinalId %}" class="btn btn-primary" >Show Term Final Mark</a></td>
+                <td><a href="{% url 'exam:editTermFinal' pk=termFinal.TermFinalId %}" class="btn btn-primary" >Edit</a></td>
+                <td><a href="{% url 'exam:deleteTermFinal' pk=termFinal.TermFinalId %}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this?');"> Delete</a> </td>
+            </tr>
+        </thead>
+        </table>
+    {% else %}
+        <h3>No Term FINAL </h3> <br>
+    {% endif %}
+    {% endwith %}
+
+    {#   Showing Marksheets Download option #}
+
+        <h1 align="center"> MARKSHEETS DOWNLOAD  </h1>
+        <form class="" action="{% url 'exam:marksheet' examid=exam.ExamID %}" method="post">
+          {% csrf_token %}
+          Select Marksheets to Download
+          <select class="" name="sheetType">
+            {% with termFinal=exam.termfinal %}
+            {% if termFinal.TermFinalId %}
+              <option value="TermFinal">TermFinal Marksheet</option>
+            {% endif %}
+            {% endwith %}
+
+
+            {% with practical=exam.practical %}
+            {% if practical.PracticalId %}
+              <option value="Practical">Practical Marksheet</option>
+            {% endif %}
+            {% endwith %}
+
+
+            {% if exam.CTs.exists %}
+              <option value="ClassTest">ClassTest Marksheet</option>
+            {% endif %}
+
+          </select>
+          <br><br>
+          <button type="submit" name="submit">Download Marksheet</button>
+
+        </form>
+        <br><br><br>
+        {#   Showing Marksheets Download option #}
+
+            <h1 align="center"> MARKS UPLOAD  </h1>
+            <br><br><br>
+            {% if messages %}
+                {% for message in messages %}
+        <!--                | means OR operator-->
+                        <strong style="color:red;">{{message|safe}}</strong>
+                {% endfor %}
+            {% endif %}
+
+            <form action="{% url 'exam:uploadmark' examid=exam.ExamID %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label for="file1"> Upload Marksheet File</label><br><br>
+                <input type="file" id="file1" name="file"><br>
+                <small>Only accepts Excel files i.e .xls format</small>
+                <br><br>
+                <button type="submit">Upload</button>
+            </form>
+            <br><br><br>
+
+{% endblock %}
+</body>

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}Update {% endblock %}
+
+<body>
+{% block content %}
+    <br><br><br>
+    <h2><u>UPDATE STUDENT'S CT MARK</u></h2>
+    CT ID: {{ ct.ctId }} &nbsp;&nbsp;&nbsp;&nbsp;
+    Term: {{ ct.ExamID.TermId }} &nbsp;&nbsp;&nbsp;&nbsp;
+    Session: {{ ct.ExamID.Session }}-{{ ct.ExamID.Session|add:"1" }} &nbsp;&nbsp;&nbsp;&nbsp;
+    Group:  {% if ct.ExamID.Group == "S" %}
+                    Science
+                {% elif ct.ExamID.Group == "C" %}
+                    Commerce
+                {% else %}
+                    Arts
+            {% endif %} &nbsp;&nbsp;&nbsp;&nbsp;
+    Examiner: {{ ct.ExamID.Examiner }} &nbsp;&nbsp;&nbsp;&nbsp;
+    Full Mark : {{ ct.TotalMarks }} &nbsp;&nbsp;&nbsp;&nbsp;
+    weight(%) of CT: {{ ct.ctPercentage }}&nbsp;&nbsp;&nbsp;&nbsp;
+    <br><br>
+
+    <h2><u>Student Info</u></h2>
+    Roll: {{ mark.Roll.Roll }}&nbsp;&nbsp;&nbsp;&nbsp;
+    Name: {{ mark.Roll.Name }}&nbsp;&nbsp;&nbsp;&nbsp;
+    <br><br>
+
+    <form method="POST" action="{% url 'exam:ctMarkUpdate' ctID=ct.ctId roll=mark.Roll.Roll %}">
+        {% csrf_token %}
+{#        {{ form.as_p }}#}
+
+{#        {% for field in form %}#}
+{#        <div class="fieldWrapper">#}
+{#            {{ field.errors }}#}
+{#            {{ field.label_tag }} {{ field }}#}
+{#            {% if field.help_text %}#}
+{#            <p class="help">{{ field.help_text|safe }}</p>#}
+{#            {% endif %}#}
+{#        </div>#}
+{#        {% endfor %}#}
+
+        {{ form.non_field_errors }}
+{#        <div class="fieldWrapper">#}
+{#            {{ form.ctId.errors }}#}
+{#            <label for="{{ form.ctId.id_for_label }}">{{ form.ctId.label_tag }}</label>#}
+{#            {{ form.ctId }}#}
+{#        </div>#}
+{#        <div class="fieldWrapper">#}
+{#            {{ form.AchievedMarks.errors }}#}
+{#            <label for="{{ form.AchievedMarks.id_for_label }}">Student CT Mark:</label>#}
+{#            {{ form.AchievedMarks }}#}
+{#        </div>#}
+        <input type="number" class="form-control" id="{{ field.id_for_label }}" name="{{ field.html_name }}" value="{{ field.value }}" {% if field.field.widget.attrs.placeholder %}placeholder="{{ field.field.widget.attrs.placeholder }}"{% endif %} {% block input_attrs %}{% endblock %}>
+{# loop e use kra jabe eita general rekta form#}
+{#        <input type="number" class="form-control" id="{{ field.id_for_label }}" name="{{ field.html_name }}" value="{{ field.value }}" {% if field.field.widget.attrs.placeholder %}placeholder="{{ field.field.widget.attrs.placeholder }}"{% endif %} {% block input_attrs %}{% endblock %}>#}
+        <button type="submit">Update CT Mark</button>
+    </form>
+
+{% endblock %}
+</body>

@@ -1,0 +1,240 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+
+<!-- Required meta tags -->
+
+<head>
+    <title> {% block title %}
+        {% endblock %}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500&family=PT+Sans+Narrow:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/png" href="{% static 'images/icons/favicon.ico' %}" />
+    <!--===============================================================================================-->
+    {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}"> {% endcomment %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/all.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/select2/select2.min.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+
+    {% block subjectCHOICE %}
+    {% endblock %}
+    {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'css/subchoice.css' %}"> {% endcomment %}
+
+
+    <style>
+        #myDIV {
+            animation: mymove 1.5s;
+        }
+
+        @keyframes mymove {
+            0% {
+                word-spacing: 60px;
+            }
+        }
+        #topheader{
+            min-height:100px;
+        }
+/*
+        #topheader .navbar-nav li>a {
+            text-transform: capitalize;
+            color: #333;
+            transition: background-color .2s, color .2s;
+
+            &:hover,
+            &:focus {
+                background-color: #333;
+                color: #fff;
+            } 
+        }
+*/
+        #topheader .navbar-nav li.active>a {
+
+            background-color: #333;
+            color: #fff;
+        }
+        #topheader .dropdown:hover .dropdown-menu {
+            display: block;
+            }
+
+    </style>
+</head>
+
+<body>
+
+
+
+
+ <div>
+        <div id="topheader">
+            {% comment %} <nav class="navbar navbar-default navbar-fixed-top shift"> {% endcomment %}
+              <nav class="navbar navbar-light navbar-expand-md fixed-top pt-1 text-capitalize shift">
+    
+                    <div class="navbar-header">
+                      <a class="navbar-brand" href="#">
+                            <img src="{% static 'img/flamingoLogo3.png' %}" alt="">
+                        </a>
+                        <button type="button" class="navbar-toggler" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation">
+                            {% comment %} <span class="sr-only">Toggle navigation</span> {% endcomment %}
+                            {% comment %} <span class="navbar-toggler-icon d-flex ml-auto"></span> {% endcomment %}
+                            <i class="fa fa-bars" aria-hidden="true"></i>
+
+
+                        </button>
+                      
+    
+                    <div class="collapse navbar-collapse order-sm-12 order-lg-1" id="bs-example-navbar-collapse-1">
+                
+                        <ul class="nav navbar-nav">
+                          <li class="nav-item active"><a href="{% url 'home' %}">Home</a></li>
+                         
+                            {% if user.is_authenticated %}
+                            {% if user.is_active and user.is_staff %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#"  data-toggle="dropdown">
+                                    add <i class="fa fa-caret-down"></i>
+                                </a>
+                            <div class="dropdown-menu">
+                                <a href="{% url 'clgAdmin:addAdmin' %}">Add Admin</a>
+                                <a href="{% url 'clgAdmin:addNewStudent' %}">Add New Student</a>
+                            </div>
+                            </li>
+                            {% comment %} <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#"  onclick="location.href='{% url 'clgAdmin:addAdmin' %}'" data-toggle="dropdown">
+                                    add <i class="fa fa-caret-down"></i>
+                                </a>
+                            <div class="dropdown-menu">
+                                <a href="{% url 'clgAdmin:addAdmin' %}">Add Admin</a>
+                                <a href="{% url 'clgAdmin:addNewStudent' %}">Add New Student</a>
+                            </div>
+                            </li> {% endcomment %}
+                           
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#"  data-toggle="dropdown">
+                                    add session<i class="fa fa-caret-down"></i>
+                                </a>
+                            <div class="dropdown-menu">
+                                
+                                    <a href="{% url 'clgAdmin:addSession' %}">new Session</a>
+                                    <a href="{% url 'clgAdmin:preSession' %}">Pre-Session</a>
+                               
+                               
+                            </div>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#"  data-toggle="dropdown">
+                                    show<i class="fa fa-caret-down"></i>
+                                </a>
+                            <div class="dropdown-menu">
+                            
+                                <a href="{% url 'clgAdmin:studentList' %}">Student-List</a> 
+                                <a href="/">Show Result</a>
+
+                            </div>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#"  data-toggle="dropdown">
+                                    Exam<i class="fa fa-caret-down"></i>
+                                </a>
+                            <div class="dropdown-menu">
+
+                                <a href="{% url 'exam:create' %}">Create</a>
+                                <a href="{% url 'exam:showexam' %}">All ExamList</a>
+
+                            </div>
+                            </li>
+
+
+
+
+                            {% comment %} <li class="nav-item"><a href="{% url 'clgAdmin:addAdmin' %}">Add Admin</a></li>
+                            <li class="nav-item"><a href="{% url 'clgAdmin:addNewStudent' %}">Add New Student</a></li> {% endcomment %}
+
+{% comment %} 
+                            <li class="nav-item"><a href="{% url 'clgAdmin:studentList' %}">Student-List</a></li> 
+                            <li class="nav-item"><a href="/">Show Result</a></li> {% endcomment %}
+
+
+
+                            <li class="nav-item"><a href="/">Add Marks</a></li>
+                            <li class="nav-item"><a href="/logout">Logout</a></li>
+                                   
+                            
+                             
+                            
+                            {% else %}
+                           <li class="nav-item"><a href="{% url 'student:edit' %}">Edit Profile</a></li>
+                           
+                           <li><a href="{% url 'student:info' %}">Profile</a></li>
+                           <li><a href="{% url 'student:choice' %}">Choose Subject</a></li>
+                           
+                            <li><a href="/logout">Logout</a></li>
+                            {% endif %}
+                            {% else  %}
+                            <li><a href="{% url 'student:login' %}">Log In</a></li>
+                            <li><a href="{% url 'clgAdmin:login' %}">Admin-Login</a></li>
+                            
+                            <li class="nav-item"><a href="/">About/Contact</a></li>
+                            <!--                            @todo: Need to update about page -->
+                            {% endif %}
+                        <li class="nav-item d-flex ml-auto">
+                        <form class="navbar-form form-inline">
+                            <div class="form-group">
+                                <input type="text" class="form-control " placeholder="Search">
+                            </div>
+                            <button class="btn btn-success" type="submit">Search</button>
+                        </form>
+                        </li>
+                        </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div> 
+
+    {% block content %}
+    {% endblock %}
+
+
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/all.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/index.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    {% block JScontent %}
+    {% endblock %}
+
+ <script>
+     {#it will show the djangoMessages for 2 seconds#}
+    setTimeout(function(){
+      if ($('#msg').length > 0) {
+        $('#msg').remove();
+      }
+    }, 4000)
+ </script>
+
+</body>
+
+</html>

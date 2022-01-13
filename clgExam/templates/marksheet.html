@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <form action="" method="post">
+      {% csrf_token %}
+      <input  type="text" name="examid" placeholder="ExamID"><br><br>
+      <label for="sheetType">Select Form to Download</label>
+      <select id="sheetType" name="sheetType">
+        <option value="TermFinal">TermFinal</option>
+        <option value="CT">CT</option>
+        <option value="Practical">Practical</option>
+      </select>
+      <br><br>
+      <input type="submit" name="" value="Confirm">
+    </form>
+    <br><br><br>
+    
+  </body>
+</html>

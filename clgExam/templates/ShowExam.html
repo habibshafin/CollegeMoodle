@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Show Exam{% endblock %}
+{% block subjectCHOICE %}
+{% endblock %}
+<body>
+{% block content %}
+<br><br><br>
+{#    @todo: need to resize this ADITY/NAZMUL #}
+
+    <form method="GET" action="{% url 'exam:showexam' %}">
+        {{ Exams.form.as_p }}
+        <button type="submit">Search</button>
+    </form>
+
+    <h2>Exam List</h2>
+
+    <table class="table table-striped">
+        <tr>
+            <th>Subject</th>
+            <th>Term</th>
+            <th>Session</th>
+            <th>Group</th>
+        </tr>
+
+        {% for exam in Exams.qs %}
+          <tr>
+            <td>{{ exam.Sub_Code.Sub_Name }}</td>
+            <td>{{ exam.TermId.TermName }}</td>
+            <td>{{ exam.Session }}</td>
+            {% if exam.Group == "S" %}
+                <td>Science </td>
+                {% elif exam.Group == "C" %}
+                    <td>Commerce </td>
+                {% else %}
+                    <td>Arts </td>
+            {% endif %}
+
+            <td><a href = "{% url 'exam:detailExam' pk=exam.ExamID %}"  class="btn btn-primary" >Details</a></td>
+            <td><a href = "{% url 'exam:delete_exam' pk=exam.ExamID %}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this?');"> Delete</a></td>
+
+          </tr>
+
+        {% endfor %}
+
+    </table>
+
+{% endblock %}
+</body>
