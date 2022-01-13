@@ -26,3 +26,11 @@ Features:
 * Auto Calculation of grades
 * Auto management of students of previous sessions who could not pass
 * Easy Data collection for HSC registration with passport size images
+* Scalable database with efficient queries
+
+# Backend:
+  Django
+# Database:
+  Mysql
+# FrontEnd:
+  HTML, CSS, Javascript, Ajax
